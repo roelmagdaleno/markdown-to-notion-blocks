@@ -1,0 +1,27 @@
+{
+    "name": "roelmagdaleno/markdown-to-notion-blocks",
+    "description": "Convert a markdown file to Notion blocks.",
+    "autoload": {
+        "psr-4": {
+            "RoelMR\\MarkdownToNotionBlocks\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roel Magdaleno",
+            "email": "roelmagdaleno@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "league/commonmark": "^2.5"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.23"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
