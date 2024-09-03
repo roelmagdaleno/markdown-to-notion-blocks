@@ -1,19 +1,22 @@
 <?php
 
-test('a paragraph has the expected output', function () {
+test('a fenced code has the expected output', function () {
     $markdown = <<<MD
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    ```php
+    echo 'Hello, World!';
+    ```
     MD;
 
     $expected = [
         'object' => 'block',
-        'type' => 'paragraph',
-        'paragraph' => [
+        'type' => 'code',
+        'code' => [
+            'caption' => [],
             'rich_text' => [
                 [
                     'type' => 'text',
                     'text' => [
-                        'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                        'content' => "echo 'Hello, World!';\n",
                         'link' => null,
                     ],
                     'annotations' => [
@@ -26,7 +29,7 @@ test('a paragraph has the expected output', function () {
                     ],
                 ],
             ],
-            'color' => 'default',
+            'language' => 'php',
         ],
     ];
 

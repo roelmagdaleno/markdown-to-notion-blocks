@@ -6,6 +6,7 @@ use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Emphasis;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
 use League\CommonMark\Extension\Strikethrough\Strikethrough;
+use League\CommonMark\Node\Inline\Newline;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Node\StringContainerInterface;
 
@@ -29,7 +30,7 @@ class RichText {
      * @see https://developers.notion.com/reference/rich-text
      */
     public function __construct(public Node $node) {
-        $this->childNodes = $this->node->children();
+        $this->childNodes = $this->node->hasChildren() ? $this->node->children() : [$this->node];
     }
 
     /**
@@ -70,8 +71,8 @@ class RichText {
             return $node->getLiteral();
         }
 
-        if (!$node->hasChildren()) {
-            return '';
+        if ($node instanceof Newline) {
+            return PHP_EOL;
         }
 
         $content = '';
@@ -168,6 +169,6 @@ class RichText {
      * @return array The rich text.
      */
     public function toArray(): array {
-        return $this->node->hasChildren() ? $this->objects() : [];
+        return ! empty( $this->childNodes ) ? $this->objects() : [];
     }
 }
