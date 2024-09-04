@@ -3,10 +3,24 @@
 namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBlockQuote;
+use League\CommonMark\Node\Inline\Text;
+use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class BlockQuote extends NotionBlock {
+    /**
+     * The real node.
+     *
+     * A real node is the first child node of the block quote node.
+     * That first child node includes all the children nodes of the block quote node.
+     *
+     * @since 1.0.0
+     *
+     * @var false|Node The real node.
+     */
+    public false|Node $realNode;
+
     /**
      * Block quote constructor.
      *
@@ -16,34 +30,32 @@ class BlockQuote extends NotionBlock {
      *
      * @see https://developers.notion.com/reference/block#quote
      */
-    public function __construct(public CommonMarkBlockQuote $node) {}
+    public function __construct(public CommonMarkBlockQuote $node) {
+        $this->realNode = !$node->hasChildren() ? false : $node->children()[0];
+    }
 
     /**
      * @inheritDoc
      */
     public function object(): array {
-        return array(
-            'object' => 'block',
-            'type' => 'quote',
-            'quote' => array(
-                'rich_text' => $this->richText(),
-                'color' => $this->color(),
-            ),
-        );
+        return $this->isCallout()
+            ? (new Callout($this->node))->object()
+            : array(
+                'object' => 'block',
+                'type' => 'quote',
+                'quote' => array(
+                    'rich_text' => $this->richText(),
+                    'color' => $this->color(),
+                ),
+            );
     }
 
     /**
      * @inheritDoc
      */
     protected function richText(): array {
-        if (!$this->node->hasChildren()) {
-            return [];
-        }
-
-        $node = $this->node->children();
-
         // For the BlockQuote, all children nodes live in the first child node.
-        return (new RichText($node[0]))->toArray();
+        return $this->realNode ? (new RichText($this->realNode))->toArray() : [];
     }
 
     /**
@@ -55,5 +67,43 @@ class BlockQuote extends NotionBlock {
      */
     protected function color(): string {
         return 'default';
+    }
+
+    /**
+     * Check if the block quote is a callout.
+     * The first child of the node must have a callout type.
+     *
+     * See `$types` variable for the callout types.
+     *
+     * @since 1.0.0
+     *
+     * @return bool True if the block quote is a callout, false otherwise.
+     */
+    protected function isCallout(): bool {
+        if (!$this->realNode) {
+            return false;
+        }
+
+        /* @var Text $firstChild */
+        $firstChild = $this->realNode->firstChild();
+
+        if (!$firstChild) {
+            return false;
+        }
+
+        $types = [
+            '[!NOTE]',
+            '[!TIP]',
+            '[!SUCCESS]',
+            '[!IMPORTANT]',
+            '[!WARNING]',
+            '[!DANGER]',
+            '[!CAUTION]',
+        ];
+
+        $textContent = strtolower($firstChild->getLiteral());
+        $callout = array_filter($types, fn ($type) => str_contains($textContent, strtolower($type)));
+
+        return ! empty( $callout );
     }
 }
