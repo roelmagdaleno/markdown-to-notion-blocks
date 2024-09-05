@@ -4,6 +4,7 @@ namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use Incenteev\EmojiPattern\EmojiPattern;
 use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBlockQuote;
+use League\CommonMark\Node\Inline\Text;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Node\StringContainerInterface;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
@@ -52,11 +53,9 @@ class Callout extends NotionBlock {
     public function __construct(public CommonMarkBlockQuote $node) {
         $this->realNode = !$node->hasChildren() ? false : $node->children()[0];
 
-        if (!$this->realNode) {
-            return;
+        if ($this->realNode) {
+            $this->setProperties();
         }
-
-        $this->setProperties();
     }
 
     /**
@@ -128,13 +127,9 @@ class Callout extends NotionBlock {
      * @return void
      */
     protected function setProperties(): void {
+        /* @var Text $firstChild */
         $firstChild = $this->realNode->firstChild();
-
-        if (!$firstChild instanceof StringContainerInterface) {
-            return;
-        }
-
-        $textContent = $firstChild->getLiteral();
+        $textContent = trim($firstChild ? $firstChild->getLiteral() : '');
         $pattern = '/\[!(\w+)](?:\s(' . EmojiPattern::getEmojiPattern() . '))?/mu';
 
         /**
@@ -154,6 +149,12 @@ class Callout extends NotionBlock {
 
         // We don't need the callout type and emoji in the text content anymore.
         $textContent = trim(preg_replace($pattern, '', $textContent));
+
+        if ($textContent === '') {
+            $firstChild->detach();
+            return;
+        }
+
         $firstChild->setLiteral($textContent);
     }
 }

@@ -84,13 +84,6 @@ class BlockQuote extends NotionBlock {
             return false;
         }
 
-        /* @var Text $firstChild */
-        $firstChild = $this->realNode->firstChild();
-
-        if (!$firstChild) {
-            return false;
-        }
-
         $types = [
             '[!NOTE]',
             '[!TIP]',
@@ -101,7 +94,9 @@ class BlockQuote extends NotionBlock {
             '[!CAUTION]',
         ];
 
-        $textContent = strtolower($firstChild->getLiteral());
+        /* @var Text $firstChild */
+        $firstChild = $this->realNode->firstChild();
+        $textContent = strtolower($firstChild ? $firstChild->getLiteral() : '');
         $callout = array_filter($types, fn ($type) => str_contains($textContent, strtolower($type)));
 
         return ! empty( $callout );
