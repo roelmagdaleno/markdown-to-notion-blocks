@@ -26,17 +26,10 @@ class Paragraph extends NotionBlock {
             'object' => 'block',
             'type' => 'paragraph',
             'paragraph' => array(
-                'rich_text' => $this->richText(),
+                'rich_text' => $this->richText($this->node),
                 'color' => $this->color(),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function richText(): array {
-        return (new RichText($this->node))->toArray();
     }
 
     /**

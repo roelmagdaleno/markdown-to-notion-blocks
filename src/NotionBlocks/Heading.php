@@ -37,18 +37,11 @@ class Heading extends NotionBlock {
             'object' => 'block',
             'type' => $type,
             $type => array(
-                'rich_text' => $this->richText(),
+                'rich_text' => $this->richText($this->node),
                 'color' => $this->color(),
                 'is_toggleable' => $this->isToggleable(),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function richText(): array {
-        return (new RichText($this->node))->toArray();
     }
 
     /**

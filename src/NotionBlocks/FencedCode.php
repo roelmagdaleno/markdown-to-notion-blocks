@@ -25,17 +25,10 @@ class FencedCode extends NotionBlock {
             'type' => 'code',
             'code' => array(
                 'caption' => [],
-                'rich_text' => $this->richText(),
+                'rich_text' => $this->richText($this->node),
                 'language' => $this->language(),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function richText(): array {
-        return (new RichText($this->node))->toArray();
     }
 
     /**

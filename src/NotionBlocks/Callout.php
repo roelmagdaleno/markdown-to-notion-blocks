@@ -66,19 +66,11 @@ class Callout extends NotionBlock {
             'object' => 'block',
             'type' => 'callout',
             'callout' => array(
-                'rich_text' => $this->richText(),
+                'rich_text' => $this->richText($this->realNode),
                 'icon' => $this->icon(),
                 'color' => $this->color(),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function richText(): array {
-        // For the BlockQuote, all children nodes live in the first child node.
-        return $this->realNode ? (new RichText($this->realNode))->toArray() : [];
     }
 
     /**

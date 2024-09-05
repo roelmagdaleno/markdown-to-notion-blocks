@@ -44,18 +44,10 @@ class BlockQuote extends NotionBlock {
                 'object' => 'block',
                 'type' => 'quote',
                 'quote' => array(
-                    'rich_text' => $this->richText(),
+                    'rich_text' => $this->richText($this->realNode),
                     'color' => $this->color(),
                 ),
             );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function richText(): array {
-        // For the BlockQuote, all children nodes live in the first child node.
-        return $this->realNode ? (new RichText($this->realNode))->toArray() : [];
     }
 
     /**

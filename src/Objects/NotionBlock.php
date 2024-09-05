@@ -2,6 +2,8 @@
 
 namespace RoelMR\MarkdownToNotionBlocks\Objects;
 
+use League\CommonMark\Node\Node;
+
 abstract class NotionBlock {
     /**
      * The object.
@@ -19,7 +21,10 @@ abstract class NotionBlock {
      *
      * @since 1.0.0
      *
+     * @param Node|bool $node The node.
      * @return array The rich text of the block.
      */
-    abstract protected function richText(): array;
+    protected function richText(Node|bool $node): array {
+        return $node instanceof Node ? (new RichText($node))->toArray() : [];
+    }
 }
