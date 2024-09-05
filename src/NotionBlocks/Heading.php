@@ -4,7 +4,6 @@ namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading as CommonMarkHeading;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
-use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class Heading extends NotionBlock {
     /**

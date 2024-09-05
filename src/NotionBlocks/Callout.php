@@ -6,9 +6,7 @@ use Incenteev\EmojiPattern\EmojiPattern;
 use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBlockQuote;
 use League\CommonMark\Node\Inline\Text;
 use League\CommonMark\Node\Node;
-use League\CommonMark\Node\StringContainerInterface;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
-use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class Callout extends NotionBlock {
     /**

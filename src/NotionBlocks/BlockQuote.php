@@ -6,7 +6,6 @@ use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBl
 use League\CommonMark\Node\Inline\Text;
 use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
-use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class BlockQuote extends NotionBlock {
     /**

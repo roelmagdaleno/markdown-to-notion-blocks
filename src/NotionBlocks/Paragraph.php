@@ -4,7 +4,6 @@ namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Node\Block\Paragraph as CommonMarkParagraph;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
-use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class Paragraph extends NotionBlock {
     /**
