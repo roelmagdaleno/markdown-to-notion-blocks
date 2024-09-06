@@ -31,14 +31,7 @@ class NotionBlocksRenderer implements DocumentRendererInterface {
             }
 
             /* @var $class NotionBlock */
-            $block = new $class($node);
-            $object = $block->object();
-
-            if (empty($object)) {
-                continue;
-            }
-
-            $json[] = $object;
+            $json[] = (new $class($node))->object();
         }
 
         return new RenderedContent($document, json_encode($json));

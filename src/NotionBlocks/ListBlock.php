@@ -3,6 +3,8 @@
 namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock as CommonMarkListBlock;
+use League\CommonMark\Extension\TaskList\TaskListItemMarker;
+use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 
 class ListBlock extends NotionBlock {
@@ -13,7 +15,8 @@ class ListBlock extends NotionBlock {
      *
      * @param CommonMarkListBlock $node The paragraph node.
      *
-     * @see https://developers.notion.com/reference/block#paragraph
+     * @see https://developers.notion.com/reference/block#bulleted-list-item
+     * @see https://developers.notion.com/reference/block#numbered-list-item
      */
     public function __construct(public CommonMarkListBlock $node) {}
 
@@ -31,13 +34,15 @@ class ListBlock extends NotionBlock {
          * @since 1.0.0
          */
         foreach ($this->node->children() as $listItem) {
-            $objects[] = array(
+            $isToDo = $this->isToDo($listItem);
+
+            $objects[] = $isToDo ? (new TodoBlock($listItem))->object() : array(
                 'object' => 'block',
                 'type' => $type,
-                $type => array(
+                $type => [
                     'rich_text' => $this->richText($listItem->children()[0]),
                     'color' => $this->color(),
-                ),
+                ],
             );
         }
 
@@ -53,5 +58,17 @@ class ListBlock extends NotionBlock {
      */
     protected function color(): string {
         return 'default';
+    }
+
+    /**
+     * Check if the list item is a to-do item.
+     *
+     * @since 1.0.0
+     *
+     * @param Node $listItem The list item node.
+     * @return bool Whether the list item is a to-do item.
+     */
+    protected function isToDo(Node $listItem): bool {
+        return $listItem->firstChild()?->firstChild() instanceof TaskListItemMarker;
     }
 }
