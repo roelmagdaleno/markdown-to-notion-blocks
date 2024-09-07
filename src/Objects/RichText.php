@@ -2,6 +2,7 @@
 
 namespace RoelMR\MarkdownToNotionBlocks\Objects;
 
+use League\CommonMark\Extension\CommonMark\Node\Inline\AbstractWebResource;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Emphasis;
 use League\CommonMark\Extension\CommonMark\Node\Inline\Strong;
@@ -51,6 +52,7 @@ class RichText {
             $object = $this->defaultObject();
 
             $object['text']['content'] = $this->getTextContent($node);
+            $object['text']['link'] = $this->getLink($node) ?: null;
             $object['annotations'] = array_merge($object['annotations'], $this->getAnnotations($node));
 
             $objects[] = $object;
@@ -83,6 +85,32 @@ class RichText {
         }
 
         return $content;
+    }
+
+    /**
+     * Get the link of a node.
+     *
+     * @since 1.0.0
+     *
+     * @param Node $node The node.
+     * @return string The link.
+     */
+    protected function getLink(Node $node): string {
+        if ($node instanceof AbstractWebResource) {
+            return $node->getUrl();
+        }
+
+        if (!$node->hasChildren()) {
+            return '';
+        }
+
+        $link = '';
+
+        foreach ($node->children() as $child) {
+            $link .= $this->getLink($child);
+        }
+
+        return $link;
     }
 
     /**
