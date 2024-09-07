@@ -15,9 +15,11 @@ use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 class NotionBlocksRenderer implements DocumentRendererInterface {
     /**
      * @inheritDoc
+     *
+     * @return NotionRenderedContent The rendered content.
      * @throws ReflectionException
      */
-    public function renderDocument(Document $document): RenderedContentInterface {
+    public function renderDocument(Document $document): NotionRenderedContent {
         $json = array();
 
         foreach ($document->children() as $node) {
@@ -34,6 +36,6 @@ class NotionBlocksRenderer implements DocumentRendererInterface {
             $json[] = (new $class($node))->object();
         }
 
-        return new RenderedContent($document, json_encode($json));
+        return new NotionRenderedContent($document, json_encode($json));
     }
 }
