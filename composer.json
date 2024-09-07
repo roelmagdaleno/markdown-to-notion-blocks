@@ -1,6 +1,6 @@
 {
     "name": "roelmagdaleno/markdown-to-notion-blocks",
-    "description": "Convert a markdown file to Notion blocks.",
+    "description": "Convert markdown to Notion blocks.",
     "autoload": {
         "psr-4": {
             "RoelMR\\MarkdownToNotionBlocks\\": "src/"
