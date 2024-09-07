@@ -1,6 +1,6 @@
 <?php
 
-namespace RoelMR\MarkdownToNotionBlocks;
+namespace RoelMR\MarkdownToNotionBlocks\Converter;
 
 use League\CommonMark\Output\RenderedContent;
 

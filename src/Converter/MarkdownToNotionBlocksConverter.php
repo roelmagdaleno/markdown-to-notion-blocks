@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-namespace RoelMR\MarkdownToNotionBlocks;
+namespace RoelMR\MarkdownToNotionBlocks\Converter;
 
 use League\CommonMark\ConverterInterface;
 use League\CommonMark\Environment\EnvironmentInterface;
@@ -23,7 +21,7 @@ class MarkdownToNotionBlocksConverter implements ConverterInterface {
     /**
      * @inheritDoc
      */
-    public function convert(string $input): RenderedContentInterface {
+    public function convert(string $input): NotionRenderedContent {
         return $this->renderer->renderDocument($this->parser->parse($input));
     }
 }

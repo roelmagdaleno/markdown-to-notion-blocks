@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-namespace RoelMR\MarkdownToNotionBlocks;
+namespace RoelMR\MarkdownToNotionBlocks\Converter;
 
 use League\CommonMark\Node\Block\Document;
 use League\CommonMark\Renderer\DocumentRendererInterface;
