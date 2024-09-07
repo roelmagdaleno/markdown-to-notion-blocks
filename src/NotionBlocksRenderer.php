@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace RoelMR\MarkdownToNotionBlocks;
 
 use League\CommonMark\Node\Block\Document;
-use League\CommonMark\Output\RenderedContent;
-use League\CommonMark\Output\RenderedContentInterface;
 use League\CommonMark\Renderer\DocumentRendererInterface;
 use ReflectionClass;
 use ReflectionException;
@@ -36,6 +34,40 @@ class NotionBlocksRenderer implements DocumentRendererInterface {
             $json[] = (new $class($node))->object();
         }
 
+        /**
+         * Some arrays within the final JSON are group of arrays.
+         * This function will flatten them to a single array.
+         *
+         * Only the `ListBlock` and `TodoBlock` are affected by this
+         * because Notion API wants the children array to be a single array.
+         *
+         * @since 1.0.0
+         */
+        $json = $this->flattenSpecificArray($json);
+
         return new NotionRenderedContent($document, json_encode($json));
+    }
+
+    /**
+     * Flatten specific array.
+     *
+     * @since 1.0.0
+     *
+     * @param array $array Array to flatten.
+     * @return array Flattened array.
+     */
+    protected function flattenSpecificArray(array $array): array {
+        $result = [];
+
+        foreach ($array as $element) {
+            if (!is_array($element[0] ?? null)) {
+                $result[] = $element;
+                continue;
+            }
+
+            $result = array_merge($result, $element);
+        }
+
+        return $result;
     }
 }
