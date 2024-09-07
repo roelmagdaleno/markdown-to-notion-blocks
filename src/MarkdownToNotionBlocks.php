@@ -6,7 +6,6 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\Output\RenderedContentInterface;
 use League\Config\Exception\ConfigurationExceptionInterface;
 use RoelMR\MarkdownToNotionBlocks\Converter\MarkdownToNotionBlocksConverter;
 use RoelMR\MarkdownToNotionBlocks\Converter\NotionRenderedContent;
@@ -50,7 +49,7 @@ class MarkdownToNotionBlocks {
      * @throws CommonMarkException
      * @throws ConfigurationExceptionInterface
      */
-    protected static function convert(string $markdown): NotionRenderedContent {
+    public static function convert(string $markdown): NotionRenderedContent {
         $environment = new Environment();
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
