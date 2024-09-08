@@ -23,7 +23,7 @@ This package provides a `MarkdownToNotionBlocks` class that you can use to conve
 The `MarkdownToNotionBlocks::json` static method will return the Notion blocks in JSON format.
 
 ```php
-use RoelMagdaleno\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
+use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
 
 $markdown = '# Hello, world!';
 $notionBlocks = MarkdownToNotionBlocks::json($markdown);
@@ -68,7 +68,7 @@ The code above will output the following JSON:
 The `MarkdownToNotionBlocks::array` static method will return the Notion blocks in array format.
 
 ```php
-use RoelMagdaleno\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
+use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
 
 $markdown = '# Hello, world!';
 $notionBlocks = MarkdownToNotionBlocks::array($markdown);
@@ -123,7 +123,7 @@ to get the Notion blocks in array format and then apply your transformations.
 For example, by default each Notion block has a `color` property set to `default`. If you want to change the color of the heading to `red`, you can do the following:
 
 ```php
-use RoelMagdaleno\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
+use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
 
 $markdown = '# Hello, world!';
 
