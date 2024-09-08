@@ -2,7 +2,7 @@
 
 This package allows you to convert markdown to Notion blocks in JSON or Array format.
 
-The generated Notion blocks, in JSON format, are intended to be sent to the Notion API to create a new page or update an existing one.
+The generated [Notion blocks](https://developers.notion.com/reference/block), in JSON format, are intended to be sent to the [Notion API](https://developers.notion.com/docs/getting-started) to create a new page or update an existing one.
 
 It's using [thephpleague/commonmark](https://github.com/thephpleague/commonmark) under the hood to parse the Markdown.
 
@@ -135,6 +135,19 @@ $notionBlocks[0]['heading_1']['color'] = 'red';
 echo json_encode($notionBlocks);
 ```
 
-After applying the transformation, encode the array to JSON and send it to the Notion API.
+After applying the transformation, encode the array to JSON and send it to the [Notion API](https://developers.notion.com/docs/getting-started).
 
+## Supported Notion Blocks
 
+The following Notion blocks are supported by this package:
+
+- [Bulleted List](https://developers.notion.com/reference/block#bulleted-list-item)
+- [Callout](https://developers.notion.com/reference/block#callout)
+- [Code](https://developers.notion.com/reference/block#code)
+- [Headings](https://developers.notion.com/reference/block#headings)
+- [Numbered List](https://developers.notion.com/reference/block#numbered-list-item)
+- [Paragraph](https://developers.notion.com/reference/block#paragraph)
+- [Quote](https://developers.notion.com/reference/block#quote)
+- [To do](https://developers.notion.com/reference/block#to-do)
+
+Each block support [rich text](https://developers.notion.com/reference/rich-text) properties like bold, italic, strikethrough, underline, and inline code.
