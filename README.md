@@ -151,3 +151,9 @@ The following Notion blocks are supported by this package:
 - [To do](https://developers.notion.com/reference/block#to-do)
 
 Each block support [rich text](https://developers.notion.com/reference/rich-text) properties like bold, italic, strikethrough, underline, and inline code.
+
+## Testing
+
+```bash
+composer test
+```
