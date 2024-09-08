@@ -1,6 +1,13 @@
 {
     "name": "roelmagdaleno/markdown-to-notion-blocks",
     "description": "Convert markdown to Notion blocks.",
+    "homepage": "https://github.com/roelmagdaleno/markdown-to-notion-blocks",
+    "license": "MIT",
+    "keywords": [
+        "notion",
+        "markdown",
+        "blocks"
+    ],
     "autoload": {
         "psr-4": {
             "RoelMR\\MarkdownToNotionBlocks\\": "src/"
@@ -9,7 +16,8 @@
     "authors": [
         {
             "name": "Roel Magdaleno",
-            "email": "roelmagdaleno@gmail.com"
+            "email": "roelmagdaleno@gmail.com",
+            "homepage": "https://roelmagdaleno.com"
         }
     ],
     "require": {
@@ -19,6 +27,9 @@
     },
     "require-dev": {
         "pestphp/pest": "^1.23"
+    },
+    "scripts": {
+        "test": "vendor/bin/pest"
     },
     "config": {
         "allow-plugins": {
