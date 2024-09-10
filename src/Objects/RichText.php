@@ -51,7 +51,13 @@ class RichText {
             $object = $this->defaultObject();
 
             $object['text']['content'] = $this->getTextContent($node);
-            $object['text']['link'] = $this->getLink($node) ?: null;
+
+            $link = $this->getLink($node);
+
+            if ($link) {
+                $object['text']['link'] = ['url' => $link];
+            }
+
             $object['annotations'] = array_merge($object['annotations'], $this->getAnnotations($node));
 
             $objects[] = $object;
