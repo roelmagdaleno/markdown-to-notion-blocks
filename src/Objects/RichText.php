@@ -17,7 +17,7 @@ class RichText {
      *
      * @since 1.0.0
      *
-     * @var array|iterable|Node[] The children nodes.
+     * @var Node[] The children nodes.
      */
     protected array $childNodes = [];
 

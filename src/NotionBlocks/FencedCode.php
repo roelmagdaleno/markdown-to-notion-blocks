@@ -42,6 +42,6 @@ class FencedCode extends NotionBlock {
      * @return string The language of the code block.
      */
     protected function language(): string {
-        return $this->node->getInfo();
+        return $this->node->getInfo() ?: 'plain text';
     }
 }

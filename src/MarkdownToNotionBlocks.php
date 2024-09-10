@@ -6,20 +6,18 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\Config\Exception\ConfigurationExceptionInterface;
+use League\CommonMark\Output\RenderedContentInterface;
+use ReflectionException;
 use RoelMR\MarkdownToNotionBlocks\Converter\MarkdownToNotionBlocksConverter;
-use RoelMR\MarkdownToNotionBlocks\Converter\NotionRenderedContent;
 
 class MarkdownToNotionBlocks {
     /**
      * Convert markdown to Notion blocks in JSON format.
      *
-     * @since 1.0.0
-     *
      * @param string $markdown Markdown content.
+     *
      * @return string The Notion blocks from parsed markdown in JSON string.
-     * @throws CommonMarkException
-     * @throws ConfigurationExceptionInterface
+     * @throws CommonMarkException|ReflectionException
      */
     public static function json(string $markdown): string {
         return self::convert($markdown)->getContent();
@@ -28,15 +26,13 @@ class MarkdownToNotionBlocks {
     /**
      * Convert markdown to Notion blocks in array format.
      *
-     * @since 1.0.0
-     *
      * @param string $markdown Markdown content.
+     *
      * @return array The Notion blocks from parsed markdown in array format.
-     * @throws CommonMarkException
-     * @throws ConfigurationExceptionInterface
+     * @throws CommonMarkException|ReflectionException
      */
     public static function array(string $markdown): array {
-        return self::convert($markdown)->toArray();
+        return json_decode(self::convert($markdown)->getContent(), true);
     }
 
     /**
@@ -45,11 +41,11 @@ class MarkdownToNotionBlocks {
      * @since 1.0.0
      *
      * @param string $markdown Markdown content.
-     * @return NotionRenderedContent The Notion blocks from parsed markdown.
+     * @return RenderedContentInterface The Notion blocks from parsed markdown.
      * @throws CommonMarkException
-     * @throws ConfigurationExceptionInterface
+     * @throws ReflectionException
      */
-    public static function convert(string $markdown): NotionRenderedContent {
+    public static function convert(string $markdown): RenderedContentInterface {
         $environment = new Environment();
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());

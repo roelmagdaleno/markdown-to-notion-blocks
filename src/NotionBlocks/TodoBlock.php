@@ -31,8 +31,11 @@ class TodoBlock extends NotionBlock {
             ],
         ];
 
-        /* @var TaskListItemMarker $taskListItem */
         $taskListItem = $this->node->firstChild()?->firstChild();
+
+        if (!$taskListItem instanceof TaskListItemMarker) {
+            return $object;
+        }
 
         $object['to_do']['checked'] = $taskListItem->isChecked();
 

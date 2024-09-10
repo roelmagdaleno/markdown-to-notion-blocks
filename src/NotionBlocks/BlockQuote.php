@@ -3,7 +3,7 @@
 namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBlockQuote;
-use League\CommonMark\Node\Inline\Text;
+use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 
@@ -85,9 +85,13 @@ class BlockQuote extends NotionBlock {
             '[!CAUTION]',
         ];
 
-        /* @var Text $firstChild */
         $firstChild = $this->realNode->firstChild();
-        $textContent = strtolower($firstChild ? $firstChild->getLiteral() : '');
+
+        if (!$firstChild instanceof AbstractStringContainer) {
+            return false;
+        }
+
+        $textContent = strtolower($firstChild->getLiteral());
         $callout = array_filter($types, fn ($type) => str_contains($textContent, strtolower($type)));
 
         return ! empty( $callout );

@@ -4,7 +4,7 @@ namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use Incenteev\EmojiPattern\EmojiPattern;
 use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBlockQuote;
-use League\CommonMark\Node\Inline\Text;
+use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 
@@ -117,9 +117,13 @@ class Callout extends NotionBlock {
      * @return void
      */
     protected function setProperties(): void {
-        /* @var Text $firstChild */
         $firstChild = $this->realNode->firstChild();
-        $textContent = trim($firstChild ? $firstChild->getLiteral() : '');
+
+        if (!$firstChild instanceof AbstractStringContainer) {
+            return;
+        }
+
+        $textContent = trim( $firstChild->getLiteral());
         $pattern = '/\[!(\w+)](?:\s(' . EmojiPattern::getEmojiPattern() . '))?/mu';
 
         /**
