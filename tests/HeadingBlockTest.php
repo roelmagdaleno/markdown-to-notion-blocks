@@ -67,3 +67,37 @@ test('a heading level two has the expected output', function () {
 
     expect(convert($markdown))->toBe(json_encode([$expected]));
 });
+
+test('a heading level 4 or more is transformed to level 3', function () {
+    $markdown = <<<MD
+    #### My main heading
+    MD;
+
+    $expected = [
+        'object' => 'block',
+        'type' => 'heading_3',
+        'heading_3' => [
+            'rich_text' => [
+                [
+                    'type' => 'text',
+                    'text' => [
+                        'content' => 'My main heading',
+                        'link' => null,
+                    ],
+                    'annotations' => [
+                        'bold' => false,
+                        'italic' => false,
+                        'strikethrough' => false,
+                        'underline' => false,
+                        'code' => false,
+                        'color' => 'default',
+                    ],
+                ],
+            ],
+            'color' => 'default',
+            'is_toggleable' => false,
+        ],
+    ];
+
+    expect(convert($markdown))->toBe(json_encode([$expected]));
+});

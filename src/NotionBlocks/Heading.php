@@ -23,7 +23,8 @@ class Heading extends NotionBlock {
      * @param CommonMarkHeading $node The heading node.
      */
     public function __construct(public CommonMarkHeading $node) {
-        $this->level = $this->node->getLevel();
+        $level = $this->node->getLevel();
+        $this->level = $level >= 4 ? 3 : $level; // Notion only supports up to h3.
     }
 
     /**
