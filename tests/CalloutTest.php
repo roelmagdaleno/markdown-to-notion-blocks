@@ -26,10 +26,7 @@ test('a simple callout', function () {
                     ],
                 ],
             ],
-            'icon' => [
-                'type' => 'emoji',
-                'emoji' => '',
-            ],
+            'icon' => null,
             'color' => 'blue_background',
         ],
     ];
@@ -131,10 +128,7 @@ test('a callout with title and body', function () {
                     ],
                 ],
             ],
-            'icon' => [
-                'type' => 'emoji',
-                'emoji' => '',
-            ],
+            'icon' => null,
             'color' => 'blue_background',
         ],
     ];
@@ -364,10 +358,7 @@ test('an empty callout', function () {
                     ],
                 ],
             ],
-            'icon' => [
-                'type' => 'emoji',
-                'emoji' => '',
-            ],
+            'icon' => null,
             'color' => 'blue_background',
         ],
     ];
@@ -468,10 +459,7 @@ test('the first string in a callout without emoji is an annotation', function ()
                     ],
                 ],
             ],
-            'icon' => [
-                'type' => 'emoji',
-                'emoji' => '',
-            ],
+            'icon' => null,
             'color' => 'blue_background',
         ],
     ];

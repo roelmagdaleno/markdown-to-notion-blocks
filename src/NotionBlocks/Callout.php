@@ -91,10 +91,10 @@ class Callout extends NotionBlock {
      *
      * @since 1.0.0
      *
-     * @return array The icon of the block.
+     * @return null|array The icon of the block.
      */
-    protected function icon(): array {
-        return [
+    protected function icon(): null|array {
+        return empty ($this->emoji) ? null : [
             'type' => 'emoji',
             'emoji' => $this->emoji,
         ];
