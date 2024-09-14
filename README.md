@@ -86,7 +86,7 @@ Array
 The `MarkdownToNotionBlocks::json` static method will return the Notion blocks in JSON format.
 
 > [!NOTE]
-> Since the Notion blocks are returned in chunks of 100, the JSON output might not be valid for the Notion API.
+> Since the Notion blocks are returned in chunks of 100, the JSON output might not be valid for the Notion API. The JSON output is useful for debugging purposes or send it from the server to the client.
 
 ```php
 use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
