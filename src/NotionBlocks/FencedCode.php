@@ -36,10 +36,6 @@ class FencedCode extends NotionBlock {
      * @inheritDoc
      */
     protected function richText(Node|bool $node): array {
-        if (!$node instanceof Node) {
-            return [];
-        }
-
         $richText = (new RichText($node))->toArray();
 
         /**

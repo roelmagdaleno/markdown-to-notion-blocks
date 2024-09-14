@@ -59,7 +59,7 @@ test('a to do list has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode($expected));
+    expect(convert($markdown))->toBe(json_encode([$expected]));
 });
 
 test('a to do list with annotations', function () {
@@ -151,7 +151,7 @@ test('a to do list with annotations', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode($expected));
+    expect(convert($markdown))->toBe(json_encode([$expected]));
 });
 
 test('a to do list with link', function () {
@@ -212,7 +212,9 @@ test('a to do list with link', function () {
                         'type' => 'text',
                         'text' => [
                             'content' => '2',
-                            'link' => 'https://commonmark.thephpleague.com/',
+                            'link' => [
+                                'url' => 'https://commonmark.thephpleague.com/',
+                            ],
                         ],
                         'annotations' => [
                             'bold' => false,
@@ -228,5 +230,5 @@ test('a to do list with link', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode($expected));
+    expect(convert($markdown))->toBe(json_encode([$expected]));
 });

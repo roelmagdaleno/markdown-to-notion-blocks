@@ -17,3 +17,7 @@ use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
 function convert(string $markdown): string {
     return MarkdownToNotionBlocks::json($markdown);
 }
+
+function expectedJson(array $expected): string {
+    return json_encode([[$expected]]);
+}

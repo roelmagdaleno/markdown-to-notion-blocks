@@ -34,7 +34,7 @@ test('a simple callout', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a simple callout with emoji', function () {
@@ -71,7 +71,7 @@ test('a simple callout with emoji', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a callout with title and body', function () {
@@ -139,7 +139,7 @@ test('a callout with title and body', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a callout with title, body, and emoji', function () {
@@ -207,7 +207,7 @@ test('a callout with title, body, and emoji', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a callout with title, body, emoji, and annotations', function () {
@@ -335,7 +335,7 @@ test('a callout with title, body, emoji, and annotations', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('an empty callout', function () {
@@ -372,7 +372,7 @@ test('an empty callout', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('the first string in a callout with emoji is an annotation', function () {
@@ -424,7 +424,7 @@ test('the first string in a callout with emoji is an annotation', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('the first string in a callout without emoji is an annotation', function () {
@@ -476,5 +476,5 @@ test('the first string in a callout without emoji is an annotation', function ()
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });

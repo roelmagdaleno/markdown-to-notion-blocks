@@ -30,7 +30,7 @@ test('a paragraph has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a paragraph with link', function () {
@@ -62,7 +62,9 @@ test('a paragraph with link', function () {
                     'type' => 'text',
                     'text' => [
                         'content' => 'consectetur',
-                        'link' => 'https://commonmark.thephpleague.com/',
+                        'link' => [
+                            'url' => 'https://commonmark.thephpleague.com/',
+                        ],
                     ],
                     'annotations' => [
                         'bold' => false,
@@ -93,7 +95,7 @@ test('a paragraph with link', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a paragraph with link and annotations', function () {
@@ -125,7 +127,9 @@ test('a paragraph with link and annotations', function () {
                     'type' => 'text',
                     'text' => [
                         'content' => 'consectetur',
-                        'link' => 'https://commonmark.thephpleague.com/',
+                        'link' => [
+                            'url' => 'https://commonmark.thephpleague.com/',
+                        ],
                     ],
                     'annotations' => [
                         'bold' => true,
@@ -156,5 +160,5 @@ test('a paragraph with link and annotations', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });

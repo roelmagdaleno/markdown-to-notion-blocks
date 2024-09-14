@@ -57,7 +57,7 @@ test('a bulleted list has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode($expected));
+    expect(convert($markdown))->toBe(json_encode([$expected]));
 });
 
 test('an ordered list has the expected output', function () {
@@ -117,7 +117,7 @@ test('an ordered list has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode($expected));
+    expect(convert($markdown))->toBe(json_encode([$expected]));
 });
 
 test('a list with annotations', function () {
@@ -207,5 +207,5 @@ test('a list with annotations', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode($expected));
+    expect(convert($markdown))->toBe(json_encode([$expected]));
 });

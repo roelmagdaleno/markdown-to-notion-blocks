@@ -31,7 +31,7 @@ test('a heading level one has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a heading level two has the expected output', function () {
@@ -65,7 +65,7 @@ test('a heading level two has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a heading level 4 or more is transformed to level 3', function () {
@@ -99,5 +99,5 @@ test('a heading level 4 or more is transformed to level 3', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });

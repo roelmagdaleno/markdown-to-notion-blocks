@@ -60,7 +60,7 @@ test('a paragraph has bold annotation', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a paragraph has code annotation', function () {
@@ -123,7 +123,7 @@ test('a paragraph has code annotation', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a paragraph has a strikethrough annotation', function () {
@@ -186,7 +186,7 @@ test('a paragraph has a strikethrough annotation', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a paragraph has a italic annotation', function () {
@@ -249,5 +249,5 @@ test('a paragraph has a italic annotation', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(json_encode([[$expected]]));
 });

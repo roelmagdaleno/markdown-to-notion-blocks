@@ -30,7 +30,7 @@ test('a block quote has the expected output', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a block quote has some annotations', function () {
@@ -214,7 +214,7 @@ test('a block quote has some annotations', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a block quote has empty content', function () {
@@ -231,7 +231,7 @@ test('a block quote has empty content', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
 
 test('a block quote has empty content in two lines', function () {
@@ -249,5 +249,5 @@ test('a block quote has empty content in two lines', function () {
         ],
     ];
 
-    expect(convert($markdown))->toBe(json_encode([$expected]));
+    expect(convert($markdown))->toBe(expectedJson($expected));
 });
