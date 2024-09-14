@@ -14,54 +14,17 @@ You can install the package via composer:
 composer require roelmagdaleno/markdown-to-notion-blocks
 ```
 
+## Considerations
+
+### 100 Blocks Maximum
+
+Notion API only accepts a maximum of 100 blocks per request. So, this package will always return an array, in chunks, of 100 blocks.
+
+You'll have to send each chunk to the Notion API separately.
+
 ## Usage
 
 This package provides a `MarkdownToNotionBlocks` class that you can use to convert markdown to Notion blocks in JSON or Array format.
-
-### JSON
-
-The `MarkdownToNotionBlocks::json` static method will return the Notion blocks in JSON format.
-
-```php
-use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
-
-$markdown = '# Hello, world!';
-$notionBlocks = MarkdownToNotionBlocks::json($markdown);
-
-echo $notionBlocks;
-```
-
-The code above will output the following JSON:
-
-```json
-[
-    {
-        "object": "block",
-        "type": "heading_1",
-        "heading_1": {
-            "rich_text": [
-                {
-                    "type": "text",
-                    "text": {
-                        "content": "Hello, world!",
-                        "link": null
-                    },
-                    "annotations": {
-                        "bold": false,
-                        "italic": false,
-                        "strikethrough": false,
-                        "underline": false,
-                        "code": false,
-                        "color": "default"
-                    }
-                }
-            ],
-            "color": "default",
-            "is_toggleable": false
-        }
-    }
-]
-```
 
 ### Array
 
@@ -83,36 +46,89 @@ Array
 (
     [0] => Array
         (
-            [object] => block
-            [type] => heading_1
-            [heading_1] => Array
+            [0] => Array
                 (
-                    [rich_text] => Array
+                    [object] => block
+                    [type] => heading_1
+                    [heading_1] => Array
                         (
-                            [0] => Array
+                            [rich_text] => Array
                                 (
-                                    [type] => text
-                                    [text] => Array
+                                    [0] => Array
                                         (
-                                            [content] => Hello, world!
-                                            [link] => 
-                                        )
-                                    [annotations] => Array
-                                        (
-                                            [bold] => 
-                                            [italic] => 
-                                            [strikethrough] => 
-                                            [underline] => 
-                                            [code] => 
-                                            [color] => default
+                                            [type] => text
+                                            [text] => Array
+                                                (
+                                                    [content] => Hello, world!
+                                                    [link] => 
+                                                )
+                                            [annotations] => Array
+                                                (
+                                                    [bold] => 
+                                                    [italic] => 
+                                                    [strikethrough] => 
+                                                    [underline] => 
+                                                    [code] => 
+                                                    [color] => default
+                                                )
                                         )
                                 )
+                            [color] => default
+                            [is_toggleable] => 
                         )
-                    [color] => default
-                    [is_toggleable] => 
                 )
         )
 )
+```
+
+### JSON
+
+The `MarkdownToNotionBlocks::json` static method will return the Notion blocks in JSON format.
+
+> [!NOTE]
+> Since the Notion blocks are returned in chunks of 100, the JSON output might not be valid for the Notion API.
+
+```php
+use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
+
+$markdown = '# Hello, world!';
+$notionBlocks = MarkdownToNotionBlocks::json($markdown);
+
+echo $notionBlocks;
+```
+
+The code above will output the following JSON:
+
+```json
+[
+  [
+    {
+      "object": "block",
+      "type": "heading_1",
+      "heading_1": {
+        "rich_text": [
+          {
+            "type": "text",
+            "text": {
+              "content": "Hello, world!",
+              "link": null
+            },
+            "annotations": {
+              "bold": false,
+              "italic": false,
+              "strikethrough": false,
+              "underline": false,
+              "code": false,
+              "color": "default"
+            }
+          }
+        ],
+        "color": "default",
+        "is_toggleable": false
+      }
+    }
+  ]
+]
 ```
 
 ## Transform Output
