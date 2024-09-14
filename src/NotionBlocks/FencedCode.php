@@ -3,7 +3,9 @@
 namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode as CommonMarkFencedCode;
+use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
+use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class FencedCode extends NotionBlock {
     /**
@@ -28,6 +30,33 @@ class FencedCode extends NotionBlock {
                 'language' => $this->language(),
             ),
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function richText(Node|bool $node): array {
+        if (!$node instanceof Node) {
+            return [];
+        }
+
+        $richText = (new RichText($node))->toArray();
+
+        /**
+         * Trim the last newline character from all the text objects.
+         *
+         * All code blocks have a newline character at the end, and when we
+         * send it to the Notion API, it adds an extra line to the code block.
+         *
+         * @since 1.0.0
+         */
+        foreach ($richText as $key => $object) {
+            if ($object['type'] === 'text') {
+                $richText[$key]['text']['content'] = trim($object['text']['content']);
+            }
+        }
+
+        return $richText;
     }
 
     /**

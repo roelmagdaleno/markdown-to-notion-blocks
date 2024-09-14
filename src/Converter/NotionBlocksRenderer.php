@@ -43,6 +43,15 @@ class NotionBlocksRenderer implements DocumentRendererInterface {
          */
         $json = $this->flattenSpecificArray($json);
 
+        /**
+         * Notion API only accepts 100 blocks per request.
+         *
+         * If we don't chunk the array, the API will return a 400 error.
+         *
+         * @since 1.0.0
+         */
+        $json = array_chunk($json, 100);
+
         return new NotionRenderedContent($document, json_encode($json));
     }
 
