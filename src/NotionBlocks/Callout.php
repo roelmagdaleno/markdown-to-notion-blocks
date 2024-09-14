@@ -7,6 +7,7 @@ use League\CommonMark\Extension\CommonMark\Node\Block\BlockQuote as CommonMarkBl
 use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
+use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
 class Callout extends NotionBlock {
     /**
@@ -69,6 +70,20 @@ class Callout extends NotionBlock {
                 'color' => $this->color(),
             ),
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function richText(Node|bool $node): array {
+        $richText = (new RichText($node))->toArray();
+
+        // Remove the entire object if the rich text first object is a line break.
+        if ($richText[0]['type'] === 'text' && $richText[0]['text']['content'] === PHP_EOL) {
+            array_shift($richText);
+        }
+
+        return $richText;
     }
 
     /**
