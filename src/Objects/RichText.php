@@ -52,10 +52,30 @@ class RichText {
 
             $object['text']['content'] = $this->getTextContent($node);
 
+            // If `$object['text']['content']` length is more than 2000 characters, split it into multiple objects.
+            if (strlen($object['text']['content']) > 2000) {
+                $content = $object['text']['content'];
+
+                while (strlen($content) > 2000) {
+                    $object['text']['content'] = substr($content, 0, 2000);
+                    $content = substr($content, 2000);
+
+                    $objects[] = $object;
+                    $object = $this->defaultObject();
+                }
+
+                $object['text']['content'] = $content;
+            }
+
             $link = $this->getLink($node);
 
             if ($link) {
                 $object['text']['link'] = ['url' => $link];
+            }
+
+            // If `$object['text']['link']['url']` length is more than 2000 characters, set a `null` value.
+            if (is_array($object['text']['link']) && strlen($object['text']['link']['url']) > 2000) {
+                $object['text']['link'] = null;
             }
 
             $object['annotations'] = array_merge($object['annotations'], $this->getAnnotations($node));
