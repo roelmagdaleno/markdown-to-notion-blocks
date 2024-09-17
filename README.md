@@ -14,13 +14,21 @@ You can install the package via composer:
 composer require roelmagdaleno/markdown-to-notion-blocks
 ```
 
-## Considerations
+## Size Limits
 
-### 100 Blocks Maximum
+### Maximum Blocks
 
-Notion API only accepts a maximum of 100 blocks per request. So, this package will always return an array, in chunks, of 100 blocks.
+The Notion API only accepts a maximum of 100 blocks per request. So, this package will always return an array, in chunks, of 100 blocks.
 
 You'll have to send each chunk to the Notion API separately.
+
+### Text Content
+
+The Notion API only accepts a maximum of 2000 characters per text content. If the text content is more than 2000 characters, it will be split into multiple rich text objects.
+
+### Rich Text
+
+The Notion API only accepts a maximum of 100 rich text objects per block. If the rich text objects are more than 100, it will be split into multiple blocks.
 
 ## Usage
 
