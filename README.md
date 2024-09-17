@@ -24,11 +24,11 @@ You'll have to send each chunk to the Notion API separately.
 
 ### Text Content
 
-The Notion API only accepts a maximum of 2000 characters per text content. If the text content is more than 2000 characters, it will be split into multiple rich text objects.
+The Notion API only accepts a maximum of 2000 characters per text content. If the text content is more than 2000 characters, the package will split them into multiple rich text objects.
 
 ### Rich Text
 
-The Notion API only accepts a maximum of 100 rich text objects per block. If the rich text objects are more than 100, it will be split into multiple blocks.
+The Notion API only accepts a maximum of 100 rich text objects per block. If the rich text objects are more than 100, the package will split them into multiple blocks.
 
 ## Usage
 
@@ -175,6 +175,26 @@ The following Notion blocks are supported by this package:
 - [To do](https://developers.notion.com/reference/block#to-do)
 
 Each block support [rich text](https://developers.notion.com/reference/rich-text) properties like bold, italic, strikethrough, underline, and inline code.
+
+## Example
+
+The following example shows how to convert a Markdown string to Notion blocks in Array format.
+
+```php
+$markdown = file_get_contents($file_path);
+
+$notion_blocks = MarkdownToNotionBlocks::array($markdown);
+
+if (!$notion_blocks) {
+    return false;
+}
+
+$notion_db_id = '101c7zs03d0680e6aa1cf27a0e61e8f4';
+
+foreach ($notion_blocks as $notion_block) {
+    append_blocks_to_notion_page($notion_db_id, $notion_block);
+}
+```
 
 ## Testing
 
