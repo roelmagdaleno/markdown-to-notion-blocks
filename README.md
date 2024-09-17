@@ -181,6 +181,8 @@ Each block support [rich text](https://developers.notion.com/reference/rich-text
 The following example shows how to convert a Markdown string to Notion blocks in Array format.
 
 ```php
+use RoelMR\MarkdownToNotionBlocks\MarkdownToNotionBlocks;
+
 $markdown = file_get_contents($file_path);
 
 $notion_blocks = MarkdownToNotionBlocks::array($markdown);
