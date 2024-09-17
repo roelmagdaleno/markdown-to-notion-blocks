@@ -29,7 +29,33 @@ class NotionBlocksRenderer implements DocumentRendererInterface {
             }
 
             /* @var $class NotionBlock */
-            $json[] = (new $class($node))->object();
+            $object = (new $class($node))->object();
+
+            $type = $object['type'] ?? '';
+
+            /**
+             * If `$object[<type>]['rich_text']` is more than 100 objects, split it into multiple objects.
+             *
+             * The Notion API only accepts 100 rich text objects per block.
+             *
+             * @since 1.2.0
+             *
+             * @see https://developers.notion.com/reference/request-limits#limits-for-property-values
+             */
+            if (isset($object[$type]['rich_text']) && count($object[$type]['rich_text']) > 100) {
+                $richText = $object[$type]['rich_text'];
+
+                while (count($richText) > 100) {
+                    $object[$type]['rich_text'] = array_slice($richText, 0, 100);
+                    $json[] = $object;
+
+                    $richText = array_slice($richText, 100);
+                }
+
+                $object[$type]['rich_text'] = $richText;
+            }
+
+            $json[] = $object;
         }
 
         /**

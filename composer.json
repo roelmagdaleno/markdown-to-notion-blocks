@@ -1,7 +1,7 @@
 {
     "name": "roelmagdaleno/markdown-to-notion-blocks",
     "description": "Convert markdown to Notion blocks.",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "homepage": "https://github.com/roelmagdaleno/markdown-to-notion-blocks",
     "license": "MIT",
     "keywords": [
