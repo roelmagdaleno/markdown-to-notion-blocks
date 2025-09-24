@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 test('a block quote has the expected output', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > A simple block quote.
     MD;
 
@@ -34,7 +36,7 @@ test('a block quote has the expected output', function () {
 });
 
 test('a block quote has some annotations', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > This is my *text* with ~~some~~ **annotations**.
     > My second block **quote**.
     MD;
@@ -218,7 +220,7 @@ test('a block quote has some annotations', function () {
 });
 
 test('a block quote has empty content', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > 
     MD;
 
@@ -235,7 +237,7 @@ test('a block quote has empty content', function () {
 });
 
 test('a block quote has empty content in two lines', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > 
     > 
     MD;

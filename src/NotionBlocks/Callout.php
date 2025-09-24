@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use Incenteev\EmojiPattern\EmojiPattern;
@@ -9,7 +11,8 @@ use League\CommonMark\Node\Node;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 use RoelMR\MarkdownToNotionBlocks\Objects\RichText;
 
-class Callout extends NotionBlock {
+final class Callout extends NotionBlock
+{
     /**
      * The real node.
      *
@@ -45,11 +48,12 @@ class Callout extends NotionBlock {
      *
      * @since 1.0.0
      *
-     * @param CommonMarkBlockQuote $node The block quote node.
+     * @param  CommonMarkBlockQuote  $node  The block quote node.
      *
      * @see https://developers.notion.com/reference/block#callout
      */
-    public function __construct(public CommonMarkBlockQuote $node) {
+    public function __construct(public CommonMarkBlockQuote $node)
+    {
         $this->realNode = !$node->hasChildren() ? false : $node->children()[0];
 
         if ($this->realNode) {
@@ -58,24 +62,26 @@ class Callout extends NotionBlock {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function object(): array {
-        return array(
+    public function object(): array
+    {
+        return [
             'object' => 'block',
             'type' => 'callout',
-            'callout' => array(
+            'callout' => [
                 'rich_text' => $this->richText($this->realNode),
                 'icon' => $this->icon(),
                 'color' => $this->color(),
-            ),
-        );
+            ],
+        ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    protected function richText(Node|bool $node): array {
+    protected function richText(Node|bool $node): array
+    {
         $richText = (new RichText($node))->toArray();
 
         // Remove the entire object if the rich text first object is a line break.
@@ -93,8 +99,9 @@ class Callout extends NotionBlock {
      *
      * @return null|array The icon of the block.
      */
-    protected function icon(): null|array {
-        return empty ($this->emoji) ? null : [
+    protected function icon(): ?array
+    {
+        return empty($this->emoji) ? null : [
             'type' => 'emoji',
             'emoji' => $this->emoji,
         ];
@@ -107,7 +114,8 @@ class Callout extends NotionBlock {
      *
      * @return string The color of the block.
      */
-    protected function color(): string {
+    protected function color(): string
+    {
         $backgroundColors = [
             'CAUTION' => 'yellow_background',
             'DANGER' => 'red_background',
@@ -128,18 +136,17 @@ class Callout extends NotionBlock {
      * We're just setting the callout type and emoji.
      *
      * @since 1.0.0
-     *
-     * @return void
      */
-    protected function setProperties(): void {
+    protected function setProperties(): void
+    {
         $firstChild = $this->realNode->firstChild();
 
         if (!$firstChild instanceof AbstractStringContainer) {
             return;
         }
 
-        $textContent = trim( $firstChild->getLiteral());
-        $pattern = '/\[!(\w+)](?:\s(' . EmojiPattern::getEmojiPattern() . '))?/mu';
+        $textContent = mb_trim($firstChild->getLiteral());
+        $pattern = '/\[!(\w+)](?:\s('.EmojiPattern::getEmojiPattern().'))?/mu';
 
         /**
          * Extract the callout type and emoji.
@@ -157,10 +164,11 @@ class Callout extends NotionBlock {
         $this->emoji = empty($matches) ? $this->emoji : $matches[2] ?? '';
 
         // We don't need the callout type and emoji in the text content anymore.
-        $textContent = trim(preg_replace($pattern, '', $textContent));
+        $textContent = mb_trim(preg_replace($pattern, '', $textContent));
 
         if ($textContent === '') {
             $firstChild->detach();
+
             return;
         }
 

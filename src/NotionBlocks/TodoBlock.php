@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace RoelMR\MarkdownToNotionBlocks\NotionBlocks;
 
 use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
@@ -7,22 +9,24 @@ use League\CommonMark\Extension\TaskList\TaskListItemMarker;
 use League\CommonMark\Node\Inline\Text;
 use RoelMR\MarkdownToNotionBlocks\Objects\NotionBlock;
 
-class TodoBlock extends NotionBlock {
+final class TodoBlock extends NotionBlock
+{
     /**
      * Paragraph constructor.
      *
      * @since 1.0.0
      *
-     * @param ListItem $node The list item node.
+     * @param  ListItem  $node  The list item node.
      *
      * @see https://developers.notion.com/reference/block#to-do
      */
     public function __construct(public ListItem $node) {}
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function object(): array {
+    public function object(): array
+    {
         $object = [
             'object' => 'block',
             'type' => 'to_do',
@@ -49,7 +53,7 @@ class TodoBlock extends NotionBlock {
          * @var Text $rawText
          */
         $rawText = $this->node->children()[0]?->children()[1];
-        $rawText->setLiteral(trim($rawText->getLiteral()));
+        $rawText->setLiteral(mb_trim($rawText->getLiteral()));
 
         // Detach the `TaskListItemMarker` node from the list item to avoid empty rich text results.
         $taskListItem->detach();
@@ -66,7 +70,8 @@ class TodoBlock extends NotionBlock {
      *
      * @return string The color of the block.
      */
-    protected function color(): string {
+    protected function color(): string
+    {
         return 'default';
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 test('a paragraph has bold annotation', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, **consectetur** adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 
@@ -64,7 +66,7 @@ test('a paragraph has bold annotation', function () {
 });
 
 test('a paragraph has code annotation', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, `consectetur` adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 
@@ -100,7 +102,7 @@ test('a paragraph has code annotation', function () {
                         'strikethrough' => false,
                         'underline' => false,
                         'code' => true,
-                        'color' => 'default',
+                        'color' => 'red',
                     ],
                 ],
                 [
@@ -127,7 +129,7 @@ test('a paragraph has code annotation', function () {
 });
 
 test('a paragraph has a strikethrough annotation', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, ~~adipiscing elit~~, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 
@@ -190,7 +192,7 @@ test('a paragraph has a strikethrough annotation', function () {
 });
 
 test('a paragraph has a italic annotation', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, *adipiscing elit*, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 

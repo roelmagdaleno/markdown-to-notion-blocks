@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 test('a simple callout', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] This is a callout.
     MD;
 
@@ -35,7 +37,7 @@ test('a simple callout', function () {
 });
 
 test('a simple callout with emoji', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] ⛏️ This is a callout.
     MD;
 
@@ -72,7 +74,7 @@ test('a simple callout with emoji', function () {
 });
 
 test('a callout with title and body', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] This is a callout title.
     > This is a callout body.
     MD;
@@ -137,7 +139,7 @@ test('a callout with title and body', function () {
 });
 
 test('a callout with title, body, and emoji', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] ⛏️ A callout title.
     > This is a callout.
     MD;
@@ -205,7 +207,7 @@ test('a callout with title, body, and emoji', function () {
 });
 
 test('a callout with title, body, emoji, and annotations', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] ⛏️ A **callout** title.
     > This is a *callout*.
     MD;
@@ -333,7 +335,7 @@ test('a callout with title, body, emoji, and annotations', function () {
 });
 
 test('an empty callout', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE]
     MD;
 
@@ -367,7 +369,7 @@ test('an empty callout', function () {
 });
 
 test('the first string in a callout with emoji is an annotation', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] ⛏️ **This** is a callout.
     MD;
 
@@ -419,7 +421,7 @@ test('the first string in a callout with emoji is an annotation', function () {
 });
 
 test('the first string in a callout without emoji is an annotation', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     > [!NOTE] **This** is a callout.
     MD;
 

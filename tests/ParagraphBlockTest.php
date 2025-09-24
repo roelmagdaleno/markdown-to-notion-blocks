@@ -1,7 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 test('a paragraph has the expected output', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 
@@ -34,7 +36,7 @@ test('a paragraph has the expected output', function () {
 });
 
 test('a paragraph with link', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, [consectetur](https://commonmark.thephpleague.com/) adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 
@@ -99,7 +101,7 @@ test('a paragraph with link', function () {
 });
 
 test('a paragraph with link and annotations', function () {
-    $markdown = <<<MD
+    $markdown = <<<'MD'
     Lorem ipsum dolor sit amet, **_[consectetur](https://commonmark.thephpleague.com/)_** adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     MD;
 

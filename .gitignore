@@ -1,0 +1,9 @@
+.idea/
+vendor/
+node_modules/
+composer.lock
+yarn.lock
+.phpunit.cache
+.phpunit.result.cache
+.phpactor.json
+CLAUDE.md
